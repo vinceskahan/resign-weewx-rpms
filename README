@@ -1,0 +1,52 @@
+
+# this creates a docker image 'reposync' that can
+# be used to mirror the weewx repo(s) and optionally
+# rpm --resign the contents with a desired key
+#
+# see the setup.sh and resign-it.sh scripts for details
+# and where to edit to match your desired setup
+#
+
+# make the repodir locally
+mkdir -p ./repos ./keys
+
+
+# make a directory and save your signing key in ascii format
+# ala:
+#    gpg --export -a "weewx test key" > keys/seckey.asc
+
+# make sure your key name that you exported lines up
+# with the .sh scripts here.  Look for EDITME therein.
+
+#------------------------------------------------------
+# SECURITY WARNING - do not check keys into git !!!!
+# SECURITY WARNING - do not check keys into git !!!!
+# SECURITY WARNING - do not check keys into git !!!!
+#------------------------------------------------------
+
+# build the image(s)
+docker compose build [--no-cache]
+
+# reposync a mirror of the rpms
+docker compose run reposync
+docker compose down
+
+# to resign all with a test key
+docker compose run reposync bash
+(in the image run /tmp/setup.sh)
+(in the image run /tmp/resign-it.sh)
+docker compose down
+
+##### alternate is just to use bash
+##### if your ~/.rpmmacros file points to
+##### the desired key...
+#####
+##### run:
+#####     rpm --resign *.rpm 
+##### while in a directory of rpms
+#####
+##### and then verify with:
+#####     rpm -qi *rpm | grep Sig
+#####
+
+
