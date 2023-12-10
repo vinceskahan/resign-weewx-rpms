@@ -49,4 +49,9 @@ docker compose down
 #####     rpm -qi *rpm | grep Sig
 #####
 
+# be sure to remember to 'docker compose down'
+# and if needed you can clean up all dangling
+# containers with
+#   docker rm $(docker ps -a -q)
+
 
