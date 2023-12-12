@@ -1,5 +1,5 @@
 
-cat > /etc/yum.repos.d/weewx-el7.repo <<EOF
+cat > /etc/yum.repos.d/weewx-suse15.repo <<EOF
 [suse15]
 name=weewx-suse15
 baseurl=http://weewx.com/suse/weewx/suse15
