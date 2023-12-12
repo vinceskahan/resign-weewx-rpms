@@ -1,4 +1,12 @@
 
+cat > /etc/yum.repos.d/weewx-el7.repo <<EOF
+[suse15]
+name=weewx-suse15
+baseurl=http://weewx.com/suse/weewx/suse15
+enabled=1
+gpgcheck=0
+EOF
+
 
 cat > /etc/yum.repos.d/weewx-el7.repo <<EOF
 [el7]
@@ -18,6 +26,10 @@ EOF
 
 mkdir -p /root/repos
 cd /root/repos
+
+echo ".............. suse repo ............"
+reposync --disablerepo=\* --enablerepo=suse15
+#ls /root/repos/el7/RPMS -al
 
 echo "............... el7 repo ............"
 reposync --disablerepo=\* --enablerepo=el7
