@@ -13,7 +13,8 @@ mkdir -p ./repos ./keys
 
 # make a directory and save your signing key in ascii format
 # ala:
-#    gpg --export -a "weewx test key" > keys/seckey.asc
+#    gpg --list-keys
+#    gpg --export-secret-key -a "your key name here" > keys/seckey.asc
 
 # make sure your key name that you exported lines up
 # with the .sh scripts here.  Look for EDITME therein.
@@ -32,9 +33,10 @@ docker compose run reposync
 docker compose down
 
 # to resign all with a test key
+#  - if you have a password protected key it will prompt you for it
 docker compose run reposync bash
-(in the image run /tmp/setup.sh)
-(in the image run /tmp/resign-it.sh)
+(edit and run 'bash /tmp/setup.sh')
+(and then run 'bash /tmp/resign-it.sh')
 docker compose down
 
 ##### alternate is just to use bash
@@ -52,6 +54,7 @@ docker compose down
 # be sure to remember to 'docker compose down'
 # and if needed you can clean up all dangling
 # containers with
+#   docker ps -a
 #   docker rm $(docker ps -a -q)
 
 

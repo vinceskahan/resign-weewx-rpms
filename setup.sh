@@ -17,11 +17,17 @@ yum install -y rpm-sign yum-utils
 #                              echo "Name-Real: weewx test key"; \
 #                              echo "Name-Email: me@example.com"; \
 #                              echo "%no-protection"; )
+#
+# or run 'gpg --full-gen-key' and let it prompt you
+#
 
 #--- or do it for real ---
 
-# EDITME: import previously-exported secret key from mounted keys directory
+# import previously-exported secret key from mounted keys directory
+# if your key is password protected, you will be prompted to enter it here
 gpg --import /root/keys/seckey.asc
+
+# run gpg --list-keys to itemize the loaded key(s)
 
 # EDITME: edit next two lines to match the name of your desired signing key
 echo "%_gpg_name weewx test key" >> ~/.rpmmacros
