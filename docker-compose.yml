@@ -15,9 +15,9 @@ services:
     reposync:
         image: reposync
         container_name: rocky8-reposync
-        volumes:
-          - ./repos:/root/repos
-          - ./keys:/root/keys
+        #volumes:
+          #- ./repos:/root/repos
+          #- ./keys:/root/keys
         build:
             context: ./
             target: reposync

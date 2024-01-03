@@ -25,18 +25,29 @@ yum install -y rpm-sign yum-utils
 
 # import previously-exported secret key from mounted keys directory
 # if your key is password protected, you will be prompted to enter it here
-gpg --import /root/keys/seckey.asc
+#gpg --import /root/keys/seckey.asc
 
 # run gpg --list-keys to itemize the loaded key(s)
 
 # EDITME: edit next two lines to match the name of your desired signing key
-echo "%_gpg_name weewx test key" >> ~/.rpmmacros
-gpg --export -a 'weewx test key' > /tmp/keys.export
+#echo "%_gpg_name weewx test key" >> ~/.rpmmacros
+#gpg --export -a 'weewx test key' > /tmp/keys.export
 
 # tell rpm about it and verify
-rpm --import /tmp/keys.export
+#rpm --import /tmp/keys.export
+
+echo "........... downloading weewx keys ........"
+wget -q https://weewx.com/keys.html
+
+echo "........... importing keys into gpg ........"
+gpg --import keys.html
+gpg --list-keys
+
+echo "........... importing keys into rpm ........"
+rpm --import keys.html
 rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n'
 
+echo ""
 #----- at this point rpm will use this test key to sign rpms ---
 #      cd into your working directory and run 'rpm --resign *.rpm'
 #      and verify with "rpm -q *.rpm | grep Sig" to see it resigned them

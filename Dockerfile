@@ -1,8 +1,8 @@
 
-FROM rockylinux:8.8 as reposync
+FROM rockylinux:9.2 as reposync
 MAINTAINER Vince Skahan "vinceskahan@gmail.com"
 
-RUN yum install -y yum-utils rpm-sign findutils vim pinentry
+RUN yum install -y yum-utils rpm-sign findutils vim pinentry wget
 COPY mirror-repos.sh /tmp
 COPY setup.sh /tmp
 COPY resign-it.sh /tmp
